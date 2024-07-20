@@ -17,8 +17,9 @@ let AddCustomer = ()=> {
         setEmail(event.target.value.trim());
     }
 
-    let myFunction = ()=> {
-        setsuccess(false);
+    let myFunction = async ()=> {
+        let response = await axios.get('https://meow-bank-production.up.railway.app/getcustomer/'+name);
+        navigate('/customer',{state:{customer:response.data}});
     }
 
     useEffect(()=>{
@@ -37,7 +38,7 @@ let AddCustomer = ()=> {
             if(data.data.message == "success"){
                 console.log("success");
                 setsuccess(true);
-                setTimeout(myFunction, 80000)
+                setTimeout(myFunction, 1000);
             }
         }).catch(err => {
             console.log(err.message);
