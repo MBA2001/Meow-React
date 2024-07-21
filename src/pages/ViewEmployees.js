@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import '../index.css';
 import { useNavigate } from "react-router-dom";
+import NavBar from "../helpers/NavBar";
 
 let ViewEmployees = ()=> {
     let navigate = useNavigate();
@@ -54,6 +55,7 @@ let ViewEmployees = ()=> {
     }
     return (
         <>
+        <NavBar/>
         <div style={{display:'flex', alignItems:'center', justifyContent:'center', textAlign:"center",padding:20}}>
             <Typography variant="h2" style={{paddingTop:40}}>
                 All Employees

@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import '../index.css';
 import { useNavigate } from "react-router-dom";
+import NavBar from "../helpers/NavBar";
 
 let ViewTransactions = ()=> {
     const [transactions, setTransactions] = useState([]);
@@ -56,6 +57,7 @@ let ViewTransactions = ()=> {
 
     return (
         <>
+        <NavBar/>
         <div style={{display:'flex', alignItems:'center', justifyContent:'center', textAlign:"center",padding:20}}>
             <Typography variant="h2">
                 All Transactions (In-Real-Time)

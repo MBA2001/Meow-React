@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import '../index.css';
 import { useLocation, useNavigate } from "react-router-dom";
+import NavBar from "../helpers/NavBar";
 
 let CreateTransaction = ()=> {
     const navigate = useNavigate();
@@ -41,6 +42,9 @@ let CreateTransaction = ()=> {
     }
 
     useEffect(()=>{
+        if(localStorage.getItem("FBIdToken") == null || localStorage.getItem("FBIdToken").length < 20){
+            navigate("/login");
+          }
         let getData = async () => {
             try{
                 if(myAccounts.length >0) return;
@@ -147,6 +151,8 @@ let CreateTransaction = ()=> {
         setRecieverName(state.customer.name);
     }
     return (
+        <>
+        <NavBar/>
       <div style={{display:'flex', alignItems:'center', justifyContent:'center', flexDirection:'column'}}>
         <div style={{paddingTop:30,paddingBottom:60, fontSize:30}} className='fade-in-text'>
           <h2>Transaction by {state.customer.name}</h2>
@@ -256,6 +262,7 @@ let CreateTransaction = ()=> {
         </div>
         <Button style={{fontSize:15}} onClick={handleBack}>Back</Button>
       </div>
+      </>
     );
       
   }

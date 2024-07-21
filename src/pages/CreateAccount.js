@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import '../index.css';
 import { useLocation, useNavigate } from "react-router-dom";
+import NavBar from "../helpers/NavBar";
 
 let CreateAccount = ()=> {
     const navigate = useNavigate();
@@ -39,6 +40,8 @@ let CreateAccount = ()=> {
         })
     }
     return (
+        <>
+        <NavBar/>
       <div style={{display:'flex', alignItems:'center', justifyContent:'center', flexDirection:'column'}}>
         <div style={{paddingTop:30,paddingBottom:60, fontSize:30}} className='fade-in-text'>
           <h2>Add an Account for {state.customer.name}</h2>
@@ -54,6 +57,7 @@ let CreateAccount = ()=> {
         </div>
         <Button style={{fontSize:15}} onClick={handleBack}>Back</Button>
       </div>
+      </>
     );
       
   }

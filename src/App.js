@@ -22,7 +22,6 @@ function App() {
     <div>
       
       <BrowserRouter>
-      {allRoutes.includes(window.location.href.split('/')[3]) ? <NavBar/> : ""}
           <Routes>
             <Route path ='/' element={<HomePage/>} />
             <Route path ='/login' element={<Login/>} />

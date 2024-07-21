@@ -3,9 +3,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import '../index.css';
 import { useLocation, useNavigate } from "react-router-dom";
+import NavBar from "../helpers/NavBar";
 
 let Customer = ()=> {
     const [accounts, setAccounts] = useState([]);
+    const [transactions, setTransactions] = useState([]);
     const {state} = useLocation();
     const navigate = useNavigate();
     useEffect(() => {
@@ -21,7 +23,17 @@ let Customer = ()=> {
                 console.log(err);
             }
         }
+        let getTransactions = async()=> {
+            try{
+                let res = await axios.get('https://meow-bank-production.up.railway.app/gettransactionbycustomer/'+state.customer.name);
+                console.log(res.data);
+                setTransactions(res.data);
+            }catch(err){
+                console.log(err);
+            }
+        }
         getAccounts();
+        getTransactions();
     },[]);
 
     let handleDeleteAccount = async(event)=>{
@@ -50,7 +62,7 @@ let Customer = ()=> {
     }
     return (
         <>
-        
+        <NavBar/>
       <div style={{display:'flex', alignItems:'center', justifyContent:'center',flexWrap:'wrap'}}>
         <div style={{paddingTop:10,paddingBottom:20, fontSize:30, width:'100%', textAlign:'center'}} className='fade-in-text'>
           <h2>{state.customer.name}'s Info</h2>
@@ -91,6 +103,53 @@ let Customer = ()=> {
 
         </div>
       </div>
+      <div style={{display:'flex', alignItems:'center', justifyContent:'center', flexWrap:'wrap'}}>
+        
+        {transactions.map((transaction,i) => {
+         if(transaction.type == "D"){
+             return (
+                 <Card style={{width:'20%', margin:30,padding:'0 auto', animation:'fadeIn 1s'}}>
+                     <CardHeader title={transaction.customerName}/>
+                     <CardContent>
+                         <div style={{float:'left'}}>
+                         <Typography>Type: Deposit</Typography>
+                             <Typography>Account number: {transaction.accountNumber}</Typography>
+                             <Typography>Amount: {transaction.amount}</Typography>
+                             <Typography>Employee name: {transaction.EmployeeName}</Typography>
+                         </div>
+                     </CardContent>
+                 </Card>
+             );
+         }else if(transaction.type == "W"){
+             return (
+                 <Card style={{width:'20%', margin:30,padding:'0 auto', animation:'fadeIn 1s'}}>
+                     <CardContent>
+                         <div style={{float:'left'}}>
+                             <Typography>Type: Withdrawal</Typography>
+                             <Typography>Account number: {transaction.accountNumber}</Typography>
+                             <Typography>Amount: {transaction.amount}</Typography>
+                             <Typography>Employee name: {transaction.EmployeeName}</Typography>
+                         </div>
+                     </CardContent>
+                 </Card>
+             );
+         }else {
+             return(
+             <Card style={{width:'20%', margin:30,padding:'0 auto', animation:'fadeIn 1s'}}>
+             <CardContent>
+                 <div style={{float:'left'}}>
+                     <Typography>Type: Transfer</Typography>
+                     <Typography>From Account number: {transaction.accountNumber}</Typography>
+                     <Typography>To Account number: {transaction.recieverNumber}</Typography>
+                     <Typography>Amount: {transaction.amount}</Typography>
+                     <Typography>Employee name: {transaction.EmployeeName}</Typography>
+                 </div>
+             </CardContent>
+         </Card>);
+         }
+         
+        })}
+       </div>
       </>
     );
       

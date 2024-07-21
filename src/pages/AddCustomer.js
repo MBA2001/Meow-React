@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import '../index.css';
 import { useNavigate } from "react-router-dom";
+import NavBar from "../helpers/NavBar";
 
 let AddCustomer = ()=> {
     const navigate = useNavigate();
@@ -45,6 +46,9 @@ let AddCustomer = ()=> {
         })
     }
     return (
+        <>
+      <NavBar/>
+
       <div style={{display:'flex', alignItems:'center', justifyContent:'center', flexDirection:'column'}}>
         <div style={{paddingTop:30,paddingBottom:60, fontSize:30}} className='fade-in-text'>
           <h2>Add a new customer</h2>
@@ -65,6 +69,7 @@ let AddCustomer = ()=> {
             <Button variant="contained" style={{backgroundColor:'orange', padding:20}} onClick={handleOnClick}>Add Customer</Button>
         </div>
       </div>
+      </>
     );
       
   }

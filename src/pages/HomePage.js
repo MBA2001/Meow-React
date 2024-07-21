@@ -37,11 +37,14 @@ let HomePage = ()=> {
 
     
   return (
+    <>
+    <NavBar/>
     <div style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
       <div style={{paddingTop:30, fontSize:30}} className='fade-in-text'>
         <h2>Welcome Back {employee.name}</h2>
       </div>
     </div>
+    </>
   );
     
 }
